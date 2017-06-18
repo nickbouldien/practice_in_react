@@ -1,21 +1,61 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+
+// const App = () => <h1>Hello, World</h1>
+
+class App extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      txt: 'this is the state txt',
+      cat: 0
+    }
+  }
+
+  update (e) {
+    this.setState({
+      txt: e.target.value
+    })
+  }
+
+  render(){
+    let txt = this.props.txt;
+    return(
+      <div>
+        {/* <h1>Hello, World</h1> */}
+        {/* <p>{txt}</p> */}
+        <input
+          type="text"
+          onChange={this.update.bind(this)}\
+        />
+        <p>state txt: {this.state.txt}</p>
+        <p>cat: {this.state.cat}</p>
+
       </div>
-    );
+    )
   }
 }
+
+App.propTypes = {
+  txt: React.PropTypes.string.isRequired,
+  cat: React.PropTypes.number.isRequired
+}
+
+App.defaultProps = {
+  txt: "this is the default text"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 export default App;

@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Stuff from './Stuff';
 
 // const App = () => <h1>Hello, World</h1>
 
@@ -10,7 +11,8 @@ class App extends React.Component {
       txt: 'this is the state txt',
       cat: 0,
       currentEvent: '---',
-      val: 0
+      val: 0,
+      m: 0
     }
     this.updateTextArea = this.updateTextArea.bind(this);
     this.updateVal = this.updateVal.bind(this);
@@ -18,14 +20,19 @@ class App extends React.Component {
 
   componentWillMount(){
     console.log('mounting');
+    this.setState({
+      m: 2
+    })
   }
 
   componentDidMount(){
     console.log('did mount');
+    this.inc = setInterval(this.updateVal, 500);
   }
 
   componentWillUnmount(){
     console.log(' unmount');
+    clearInterval(this.inc);
   }
 
   updateTextArea(e){
@@ -51,7 +58,7 @@ class App extends React.Component {
 
     return(
       <div>
-
+        <Stuff />
         {/* <h1>Hello, World</h1> */}
         {/* <p>{txt}</p> */}
         <Title text="Welcome to React" />
@@ -74,7 +81,7 @@ class App extends React.Component {
           cols="30"
         /> */}
 
-        <button onClick={this.updateVal}>{this.state.val}</button>
+        <button onClick={this.updateVal}>{this.state.val * this.state.m}</button>
 
 
       </div>
@@ -88,7 +95,8 @@ App.propTypes = {
 }
 
 App.defaultProps = {
-  txt: "this is the default text"
+  txt: "this is the default text",
+  cat: 2
 }
 
 class Wrapper extends React.Component {
@@ -105,7 +113,7 @@ class Wrapper extends React.Component {
         <button onClick={this.mount.bind(this)}>Mount</button>
         <hr />
         <button onClick={this.unmount.bind(this)}>Unmount</button>
-        <div id="a" ></div>
+        <div id="a"></div>
       </div>
     )
   }
